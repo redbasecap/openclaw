@@ -50,8 +50,8 @@ const SUSPICIOUS_PATTERNS = [
   /what\s+(are|is)\s+your\s+(system\s+prompt|instructions|rules|initial\s+prompt)/i,
 
   // --- data exfiltration ---
-  /(send|forward|post|email|transmit|exfiltrate)\s+.{0,40}(to|@)\s*[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+/i,
-  /(send|forward|post|upload)\s+.{0,40}(to|at)\s+https?:\/\//i,
+  /(send|forward|post|email|transmit|exfiltrate)\s+.{0,40}?(to|@)\s*[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+/i,
+  /(send|forward|post|upload)\s+.{0,40}?(to|at)\s+https?:\/\//i,
   /\bcurl\b.+\|\s*\bbash\b/i,
 
   // --- ChatML / role injection ---
@@ -66,7 +66,7 @@ const SUSPICIOUS_PATTERNS = [
   // --- destructive commands ---
   /rm\s+-rf/i,
   /delete\s+all\s+(emails?|files?|data)/i,
-  /:\(\)\s*\{\s*:\|:&\s*\}\s*;:/,
+  /:\(\)\s*\{\s*:\|:&\s*\}\s*;:/, // bash fork bomb: :(){ :|:& };:
   /mkfs\./i,
   />\s*\/dev\/sd[a-z]/i,
   /dd\s+if=.*of=\/dev\//i,
